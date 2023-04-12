@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include "util.h"
 #include <string.h>
 
@@ -16,7 +17,7 @@ int get_lines_amount(FILE *file)
     return amount;
 }
 
-short get_dimensions(FILE *file)
+short get_dimension(FILE *file)
 {
     char line[2000];
     fscanf(file, "%[^\n]\n", line);
@@ -29,4 +30,12 @@ short get_dimensions(FILE *file)
     }
     fseek(file, 0, SEEK_SET);
     return count - 1;
+}
+
+double distance(double* e1, double* e2, int dim){
+    double sum=0;
+    for(int x=0; x<dim; x++){
+        sum += pow((e1[x] - e2[x]),2);
+    }
+    return sqrt(sum);
 }
