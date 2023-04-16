@@ -1,10 +1,13 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
-#include <stdlib.h>
 #include "../include/util.h"
 #include "../include/element.h"
 #include "../include/edge.h"
-#include <string.h>
+
+int dc_find(Element * element);
 
 //=============================//
 int get_lines_amount(FILE *file)
@@ -80,9 +83,6 @@ Element ** read_elements(FILE * file, int set_size, int dimension){
             j++;
         }
         elements[i] = init_element(i, name, coordinates);
-        
-        // print_element(elements[i], dimension);
-        
         i++;
     }
     return elements;
@@ -127,4 +127,27 @@ void print_graph(Edge ** graph, int graph_size){
             print_edge(graph[x]);
         }
     }
+}
+
+//======================================================================================//
+void kruskal(Element ** set, int set_size, Edge ** graph, int graph_size, int dimension){
+
+    for(int x=0; x<graph_size; x++){
+        
+    }
+}
+
+//===========================================//
+bool dc_connected(Element * e1, Element * e2){
+    return dc_find(e1) == dc_find(e2);
+}
+
+//============================//
+int dc_find(Element * element){
+    // Weighted QU + path compression
+}
+
+//=======================================// 
+void dc_union(Element * e1, Element * e2){
+    // Weighted QU + path compression
 }

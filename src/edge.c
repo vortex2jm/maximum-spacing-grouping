@@ -22,6 +22,14 @@ double get_edge_distance(Edge * edge){
     return edge->distance;
 }
 
+Element * get_edge_e1(Edge * edge){
+    return edge->e1;
+}
+
+Element * get_edge_e2(Edge * edge){
+    return edge->e2;
+}
+
 void print_edge(Edge * edge){
     printf("%lf\n", edge->distance);
 }
