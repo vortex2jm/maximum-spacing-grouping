@@ -20,23 +20,22 @@ int main(int argc, char const *argv[])
     Element ** elements = read_elements(file, element_set_size, dimension);
     Edge ** graph = generate_graph(elements, graph_size, element_set_size, dimension);    
 
-    printf("dimension = %d\n", dimension);
-    printf("graph size = %d\n", graph_size);
-
+    clock_t sort_time_start, sort_time_end;
+    sort_time_start = clock();    
     qsort(graph, graph_size, sizeof(Edge*), edge_comparator);
-    print_graph(graph, graph_size);
+    sort_time_end = clock();
     
-    // print_elements(elements, element_set_size, dimension);
+    int * id_vector = generate_groups(elements, element_set_size, graph, graph_size, dimension, groups);
 
-    // clock_t sort_time_start, sort_time_end;
-    // sort_time_start = clock();    
-    // sort_time_end = clock();
-
-    // double sort_time_seconds = ((double)sort_time_end - sort_time_start)/CLOCKS_PER_SEC;
-    // printf("sort time = %lf\n", sort_time_seconds);
+    double sort_time_seconds = ((double)sort_time_end - sort_time_start)/CLOCKS_PER_SEC;
+    printf("sort time = %lf\n", sort_time_seconds);
 
     free(input_file);
     free(output_file);
-    
+
+    // printf("dimension = %d\n", dimension);
+    // printf("graph size = %d\n", graph_size);
+    // print_graph(graph, graph_size);
+
     return 0;
 }
