@@ -10,6 +10,7 @@ struct edge
     Element * e2;
 };
 
+//==========================================================//
 Edge * init_edge(double distance, Element * e1, Element * e2){
     Edge * edge = malloc(sizeof(Edge));
     edge->distance = distance;
@@ -18,22 +19,27 @@ Edge * init_edge(double distance, Element * e1, Element * e2){
     return edge;
 }
 
+//==================================//
 double get_edge_distance(Edge * edge){
     return edge->distance;
 }
 
+//================================//
 Element * get_edge_e1(Edge * edge){
     return edge->e1;
 }
 
+//================================//
 Element * get_edge_e2(Edge * edge){
     return edge->e2;
 }
 
+//=========================//
 void print_edge(Edge * edge){
     printf("%lf\n", edge->distance);
 }
 
+//=================================================//
 int edge_comparator(const void * e1, const void * e2)
 {
     Edge * (*a) = (Edge**)e1;
