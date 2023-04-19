@@ -1,13 +1,22 @@
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
 #include "../include/util.h"
 #include "../include/element.h"
 #include "../include/edge.h"
 
-int dc_find(Element * element);
+short get_dimension(FILE *file);
+int get_lines_amount(FILE *file);
+int calculate_graph_size(int root);
+int dc_find_root(int e, int * vector);
+void print_graph(Edge ** graph, int graph_size);
+double distance(double* e1, double* e2, int dim);
+int dc_union(int e1, int e2, int * vector, int * weight);
+Element ** read_elements(FILE * file, int set_size, int dimension);
+void print_elements(Element ** elements, int set_size, int dimension);
+Edge ** generate_graph(Element ** elements, int graph_size, int set_size, int dimension);
+int * generate_groups(Element ** set, int set_size, Edge ** graph, int graph_size, int dimension, int groups_amount);
 
 //=============================//
 int get_lines_amount(FILE *file)
@@ -129,25 +138,99 @@ void print_graph(Edge ** graph, int graph_size){
     }
 }
 
-//======================================================================================//
-void kruskal(Element ** set, int set_size, Edge ** graph, int graph_size, int dimension){
+//=================================================================================================================//
+int * generate_groups(Element ** set, int set_size, Edge ** graph, int graph_size, int dimension, int groups_amount){
+ 
+    int * id_vector = malloc(sizeof(int)*set_size);
+    for(int x=0; x<set_size; x++)
+        id_vector[x] = x;
+
+    int * weight_vector = malloc(sizeof(int)*set_size);
+    for(int x=0; x<set_size; x++)
+        id_vector[x] = 1;
+
+    Element *e1, *e2;
+    int mst_limit = set_size - 1 - (groups_amount - 1), mst_count = 0;
 
     for(int x=0; x<graph_size; x++){
         
+        if(mst_count == mst_limit)
+            break;
+
+        e1 = get_edge_e1(graph[x]);
+        e2 = get_edge_e2(graph[x]);
+        
+        mst_count += dc_union(
+            get_element_id(e1),
+            get_element_id(e2), 
+            id_vector, 
+            weight_vector
+        );
+    }
+    return id_vector;
+}
+
+//================================================//
+void print_groups(Element ** set, int set_size, int * id_vector){
+
+    int rc_amount = 0;
+    for(int x=0; x<set_size; x++){
+        if(id_vector[x] == x)
+            rc_amount++;
+    }
+
+    int ** rc_roots = malloc(sizeof(int*)*rc_amount);
+
+    int roots_index = 0, contains_flag=0;
+
+    for(int x=0; x<set_size; x++){
+        if(!x){
+            rc_roots[x] = malloc(sizeof(int)*2);
+            rc_roots[x][0] = id_vector[0];
+            rc_roots[x][1] += 1;
+            roots_index += 1;
+            continue;
+        }
+
+        contains_flag = 0;
+        for(int y=0; y<roots_index; y++){
+            if(id_vector[x] == rc_roots[y][0]){
+                rc_roots[y][1] += 1;
+                contains_flag = 1;
+                break;
+            }
+        }
+
+        if(!contains_flag){
+            rc_roots[roots_index] = malloc(sizeof(int)*2);
+            rc_roots[roots_index][0] = id_vector[x];
+            rc_roots[roots_index][1] = 1;
+        }
     }
 }
 
-//===========================================//
-bool dc_connected(Element * e1, Element * e2){
-    return dc_find(e1) == dc_find(e2);
+//===================================//
+int dc_find_root(int e, int * vector){
+    while(e != vector[e]){
+        vector[e] = vector[vector[e]];
+        e = vector[e];
+    }
+    return e;
 }
 
-//============================//
-int dc_find(Element * element){
-    // Weighted QU + path compression
+//=====================================================// 
+int dc_union(int e1, int e2, int * vector, int * weight){
+    int x = dc_find_root(e1, vector);
+    int y = dc_find_root(e2, vector);
+    if(x == y)
+        return 0;
+    if(weight[x] < weight[y]){
+        vector[x] = y;
+        weight[y] += weight[x];
+        return 1;
+    }
+    vector[y] = x;
+    weight[x] += weight[y];
+    return 1;
 }
 
-//=======================================// 
-void dc_union(Element * e1, Element * e2){
-    // Weighted QU + path compression
-}

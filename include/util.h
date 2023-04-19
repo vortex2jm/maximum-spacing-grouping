@@ -19,4 +19,6 @@ void print_elements(Element ** elements, int set_size, int dimension);
 
 void print_graph(Edge ** graph, int graph_size);
 
+int * generate_groups(Element ** set, int set_size, Edge ** graph, int graph_size, int dimension, int groups_amount);
+
 #endif
