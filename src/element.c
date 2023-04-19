@@ -9,6 +9,7 @@ struct element
     double * coordinates;
 };
 
+//==============================================================//
 Element * init_element(int id, char * name, double * coordinates){
     Element * element = malloc(sizeof(Element));
     element->coordinates = coordinates;
@@ -17,10 +18,17 @@ Element * init_element(int id, char * name, double * coordinates){
     return element;
 }
 
+//=================================================//
 double * get_element_coordinates(Element * element){
     return element->coordinates;
 }
 
+//===================================//
+int get_element_id(Element * element){
+    return element->id;
+}
+
+//=================================================//
 void print_element(Element *element, int dimension)
 {
     printf("%s\n", element->name);
