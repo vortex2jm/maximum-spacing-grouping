@@ -10,6 +10,10 @@ int edge_comparator(const void* e1, const void * e2);
 
 double get_edge_distance(Edge * edge);
 
+Element * get_edge_e1(Edge * edge);
+
+Element * get_edge_e2(Edge * edge);
+
 void print_edge(Edge * edge);
 
 #endif
