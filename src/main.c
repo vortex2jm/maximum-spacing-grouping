@@ -10,32 +10,33 @@ int main(int argc, char const *argv[])
 {
     char *input_file = strdup(argv[1]);
     char *output_file = strdup(argv[3]);
-    int groups = atoi(argv[2]);
+    int groups_amount = atoi(argv[2]);
 
-    FILE * file = fopen(input_file,"r");
+    FILE *file = fopen(input_file, "r");
     int element_set_size = get_lines_amount(file);
     int dimension = get_dimension(file);
     int graph_size = calculate_graph_size(element_set_size);
 
-    Element ** elements = read_elements(file, element_set_size, dimension);
-    Edge ** graph = generate_graph(elements, graph_size, element_set_size, dimension);    
+    Element **elements = read_elements(file, element_set_size, dimension);
+    Edge **graph = generate_graph(elements, graph_size, element_set_size, dimension);
 
-    clock_t sort_time_start, sort_time_end;
-    sort_time_start = clock();    
-    qsort(graph, graph_size, sizeof(Edge*), edge_comparator);
-    sort_time_end = clock();
-    
-    int * id_vector = generate_groups(elements, element_set_size, graph, graph_size, dimension, groups);
+    // clock_t sort_time_start = clock();
+    qsort(graph, graph_size, sizeof(Edge *), edge_comparator);
+    // clock_t sort_time_end = clock();
 
-    double sort_time_seconds = ((double)sort_time_end - sort_time_start)/CLOCKS_PER_SEC;
-    printf("sort time = %lf\n", sort_time_seconds);
+    int *id_vector = union_find_kruskal(elements, element_set_size, graph, graph_size, dimension, groups_amount);
+
+    PQueue **groups = generate_groups(elements, element_set_size, id_vector, groups_amount);
+    for (int x = 0; x < groups_amount; x++)
+    {
+        print_queue(groups[x]);
+    }
+
+    // double sort_time_seconds = ((double)sort_time_end - sort_time_start)/CLOCKS_PER_SEC;
+    // printf("sort time = %lf\n", sort_time_seconds);
 
     free(input_file);
     free(output_file);
-
-    // printf("dimension = %d\n", dimension);
-    // printf("graph size = %d\n", graph_size);
-    // print_graph(graph, graph_size);
 
     return 0;
 }
