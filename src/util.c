@@ -127,30 +127,6 @@ Edge **generate_graph(Element **elements, int graph_size, int set_size, int dime
     return graph;
 }
 
-//===================================================================//
-void print_elements(Element **elements, int set_size, int dimension)
-{
-    if (elements)
-    {
-        for (int x = 0; x < set_size; x++)
-        {
-            print_element(elements[x]);
-        }
-    }
-}
-
-//==============================================//
-void print_graph(Edge **graph, int graph_size)
-{
-    if (graph)
-    {
-        for (int x = 0; x < graph_size; x++)
-        {
-            print_edge(graph[x]);
-        }
-    }
-}
-
 //=================================================================================================================//
 int *union_find_kruskal(Element **set, int set_size, Edge **graph, int graph_size, int dimension, int groups_amount)
 {
@@ -181,6 +157,8 @@ int *union_find_kruskal(Element **set, int set_size, Edge **graph, int graph_siz
             id_vector,
             weight_vector);
     }
+
+    free(weight_vector);
     return id_vector;
 }
 
@@ -218,6 +196,7 @@ PQueue **generate_groups(Element **set, int set_size, int *id_vector, int groups
     }
 
     qsort(queues, groups, sizeof(PQueue *), queue_comparator);
+    free(rc_roots);
 
     return queues;
 }
@@ -250,4 +229,45 @@ int dc_union(int e1, int e2, int *vector, int *weight)
     vector[y] = x;
     weight[x] += weight[y];
     return 1;
+}
+
+void end_set(Element ** set, int set_size){
+    if(set){
+        for(int x=0; x<set_size; x++){
+            if(set[x]){
+                end_element(set[x]);
+            }
+        }
+        free(set);
+    }
+}
+
+void end_graph(Edge ** graph, int graph_size){
+    if(graph){
+        for(int x=0; x<graph_size; x++){
+            if(graph[x]){
+                end_edge(graph[x]);
+            }
+        }
+        free(graph);
+    }
+}
+
+void end_groups(PQueue ** groups, int groups_amount){
+    if(groups){
+        for(int x=0; x<groups_amount; x++){
+            if(groups[x]){
+                end_queue(groups[x]);
+            }
+        }
+        free(groups);
+    }
+}
+
+void generate_output(PQueue ** groups, int groups_amount, char * out_file_name){
+    FILE * file = fopen(out_file_name, "w");
+    for(int x=0; x<groups_amount; x++){
+        print_queue(groups[x], file);
+    }
+    fclose(file);
 }

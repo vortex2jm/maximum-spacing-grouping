@@ -19,6 +19,12 @@ Edge * init_edge(double distance, Element * e1, Element * e2){
     return edge;
 }
 
+void end_edge(Edge * edge){
+    if(edge){
+        free(edge);
+    }
+}
+
 //==================================//
 double get_edge_distance(Edge * edge){
     return edge->distance;

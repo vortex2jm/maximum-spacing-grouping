@@ -16,4 +16,6 @@ Element * get_edge_e2(Edge * edge);
 
 void print_edge(Edge * edge);
 
+void end_edge(Edge * edge);
+
 #endif

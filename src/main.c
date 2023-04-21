@@ -20,23 +20,20 @@ int main(int argc, char const *argv[])
     Element **elements = read_elements(file, element_set_size, dimension);
     Edge **graph = generate_graph(elements, graph_size, element_set_size, dimension);
 
-    // clock_t sort_time_start = clock();
     qsort(graph, graph_size, sizeof(Edge *), edge_comparator);
-    // clock_t sort_time_end = clock();
 
     int *id_vector = union_find_kruskal(elements, element_set_size, graph, graph_size, dimension, groups_amount);
 
     PQueue **groups = generate_groups(elements, element_set_size, id_vector, groups_amount);
-    for (int x = 0; x < groups_amount; x++)
-    {
-        print_queue(groups[x]);
-    }
+    generate_output(groups, groups_amount, output_file);
 
-    // double sort_time_seconds = ((double)sort_time_end - sort_time_start)/CLOCKS_PER_SEC;
-    // printf("sort time = %lf\n", sort_time_seconds);
-
+    fclose(file);
+    free(id_vector);
     free(input_file);
     free(output_file);
+    end_graph(graph, graph_size);
+    end_groups(groups, groups_amount);
+    end_set(elements, element_set_size);
 
     return 0;
 }

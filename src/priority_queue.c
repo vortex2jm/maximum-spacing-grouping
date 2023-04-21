@@ -25,6 +25,18 @@ PQueue *init_queue()
   return q;
 }
 
+void end_queue(PQueue * queue){
+  if(queue){
+    Cell * current = queue->first, *aux;
+    while(current){
+      aux = current->next;
+      free(current);
+      current = aux;
+    }
+    free(queue);
+  }
+}
+
 PQueue *q_push(PQueue *queue, Element *element)
 {
   Cell *current = queue->first, *previous = NULL;
@@ -74,18 +86,18 @@ Element *get_first_queue_element(PQueue *queue)
   return queue->first->element;
 }
 
-void print_queue(PQueue *queue)
+void print_queue(PQueue *queue, FILE * file)
 {
   Cell *current = queue->first;
   while (current)
   {
-    print_element(current->element);
+    print_element(current->element, file);
 
     if (current->next)
-      printf(",");
+      fprintf(file, ",");
     current = current->next;
   }
-  printf("\n");
+  fprintf(file, "\n");
 }
 
 int queue_comparator(const void *q1, const void *q2)

@@ -19,6 +19,16 @@ Element *init_element(int id, char *name, double *coordinates)
     return element;
 }
 
+void end_element(Element * element){
+    if(element){
+        if(element->coordinates)
+            free(element->coordinates);
+        if(element->name)
+            free(element->name);
+        free(element);
+    }
+}
+
 //=================================================//
 double *get_element_coordinates(Element *element)
 {
@@ -38,7 +48,7 @@ char *get_element_name(Element *element)
 }
 
 //=================================================//
-void print_element(Element *element)
+void print_element(Element *element, FILE * file)
 {
-    printf("%s", element->name);
+    fprintf(file, "%s", element->name);
 }

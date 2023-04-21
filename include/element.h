@@ -11,6 +11,8 @@ char *get_element_name(Element *element);
 
 double *get_element_coordinates(Element *element);
 
-void print_element(Element *element);
+void print_element(Element *element, FILE * file);
+
+void end_element(Element *element);
 
 #endif
