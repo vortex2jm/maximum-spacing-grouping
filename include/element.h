@@ -3,12 +3,14 @@
 
 typedef struct element Element;
 
-Element * init_element(int id, char * name, double * coordinates);
+Element *init_element(int id, char *name, double *coordinates);
 
-int get_element_id(Element * element);
+int get_element_id(Element *element);
 
-double * get_element_coordinates(Element * element);
+char *get_element_name(Element *element);
 
-void print_element(Element *element, int dimension);
+double *get_element_coordinates(Element *element);
+
+void print_element(Element *element);
 
 #endif
