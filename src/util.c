@@ -217,6 +217,8 @@ PQueue **generate_groups(Element **set, int set_size, int *id_vector, int groups
         }
     }
 
+    qsort(queues, groups, sizeof(PQueue *), queue_comparator);
+
     return queues;
 }
 

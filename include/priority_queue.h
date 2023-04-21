@@ -10,4 +10,6 @@ PQueue *q_push(PQueue *queue, Element *element);
 
 void print_queue(PQueue *queue);
 
+int queue_comparator(const void *q1, const void *q2);
+
 #endif

@@ -87,3 +87,22 @@ void print_queue(PQueue *queue)
   }
   printf("\n");
 }
+
+int queue_comparator(const void *q1, const void *q2)
+{
+  PQueue *(*a) = (PQueue **)q1;
+  PQueue *(*b) = (PQueue **)q2;
+
+  char *n1 = get_element_name(get_first_queue_element(*a));
+  char *n2 = get_element_name(get_first_queue_element(*b));
+
+  if (strcmp(n1, n2) < 0)
+  {
+    return -1;
+  }
+  if (strcmp(n1, n2) > 0)
+  {
+    return 1;
+  }
+  return 0;
+}
