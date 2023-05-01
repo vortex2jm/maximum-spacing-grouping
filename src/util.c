@@ -63,9 +63,7 @@ double distance(double *e1, double *e2, int dim)
 //=================================//
 int calculate_graph_size(int root)
 {
-    if (root == 2)
-        return 1;
-    return (root - 1) + calculate_graph_size(root - 1);
+    return ((root * (root-1))/2);
 }
 
 //=================================================================//
