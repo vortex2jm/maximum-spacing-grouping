@@ -1,4 +1,4 @@
-EXECUTABLE       = prog
+EXECUTABLE       = trab1
 SRC              = ./src
 INCLUDE          = ./include
 OBJ              = ./obj
@@ -24,28 +24,28 @@ all: clean create_dir $(OBJ_FILES) $(EXECUTABLE)
 
 # Creatig objects directory
 create_dir: 
-	@ echo $(PURPLE)
-	@ echo "Creating $(OBJ) directory...\n"
+# @ echo $(PURPLE)
+# @ echo "Creating $(OBJ) directory...\n"
 	@ mkdir $(OBJ)
-	@ echo $(RESET_COLOR)
+# @ echo $(RESET_COLOR)
 
 # Compiling cpp files
 $(OBJ)/%.o: $(SRC)/%.c 
-	@ echo $(YELLOW)
-	@ echo "Compiling file $<..."
+# @ echo $(YELLOW)
+# @ echo "Compiling file $<..."
 	@ $(COMPILER) -c $< -o $@
-	@ echo $(RESET_COLOR)
+# @ echo $(RESET_COLOR)
 
 # Creating executable
 $(EXECUTABLE): 
-	@ echo $(YELLOW)
-	@ echo "Creating executable..."
+# @ echo $(YELLOW)
+# @ echo "Creating executable..."
 	@ $(COMPILER) $< $(OBJ)/*.o -o $@ $(FLAGS)
-	@ echo $(RESET_COLOR)
+# @ echo $(RESET_COLOR)
 
 # Cleaning workspace
 clean:
-	@ echo $(RED)
-	@ echo "Cleaning workspace..."
+# @ echo $(RED)
+# @ echo "Cleaning workspace..."
 	@ rm -rf $(OBJ) $(EXECUTABLE) *.txt
-	@ echo $(RESET_COLOR)
+# @ echo $(RESET_COLOR)

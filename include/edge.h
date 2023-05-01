@@ -2,20 +2,28 @@
 #define edge_h
 #include "element.h"
 
+// => Estrutura das arestas
 typedef struct edge Edge;
 
-Edge * init_edge(double distance, Element * e1, Element * e2);
+// => instancia uma nova aresta
+Edge *init_edge(double distance, Element *e1, Element *e2);
 
-int edge_comparator(const void* e1, const void * e2);
+// => Comparador de arestas (compara por tamanho)
+int edge_comparator(const void *e1, const void *e2);
 
-double get_edge_distance(Edge * edge);
+// => Retorna o tamanho de uma aresta
+double get_edge_distance(Edge *edge);
 
-Element * get_edge_e1(Edge * edge);
+// => Retorna o primeiro elemento que é conectado pela aresta
+Element *get_edge_e1(Edge *edge);
 
-Element * get_edge_e2(Edge * edge);
+// => Retorna o segundo elemento que é conectado pela aresta
+Element *get_edge_e2(Edge *edge);
 
-void print_edge(Edge * edge);
+// => Imprime uma aresta (função auxiliar)
+void print_edge(Edge *edge);
 
-void end_edge(Edge * edge);
+// => Libera a memória alocada pela aresta
+void end_edge(Edge *edge);
 
 #endif
