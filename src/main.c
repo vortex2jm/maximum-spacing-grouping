@@ -1,3 +1,4 @@
+// A parte do código comentada foi destinada a medição dos tempos de execução //
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,7 +37,7 @@ int main(int argc, char const *argv[])
     // clock_t get_groups_start = clock();
     PQueue **groups = generate_groups(elements, element_set_size, id_vector, groups_amount);
     // clock_t get_groups_end = clock();
-    
+
     // clock_t out_start = clock();
     generate_output(groups, groups_amount, output_file);
     // clock_t out_end = clock();

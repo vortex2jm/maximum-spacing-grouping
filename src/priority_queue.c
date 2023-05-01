@@ -17,6 +17,7 @@ struct p_queue
   Cell *last;
 };
 
+//==================//
 PQueue *init_queue()
 {
   PQueue *q = malloc(sizeof(PQueue));
@@ -25,10 +26,14 @@ PQueue *init_queue()
   return q;
 }
 
-void end_queue(PQueue * queue){
-  if(queue){
-    Cell * current = queue->first, *aux;
-    while(current){
+//=============================//
+void end_queue(PQueue *queue)
+{
+  if (queue)
+  {
+    Cell *current = queue->first, *aux;
+    while (current)
+    {
       aux = current->next;
       free(current);
       current = aux;
@@ -37,6 +42,7 @@ void end_queue(PQueue * queue){
   }
 }
 
+//============================================//
 PQueue *q_push(PQueue *queue, Element *element)
 {
   Cell *current = queue->first, *previous = NULL;
@@ -44,15 +50,14 @@ PQueue *q_push(PQueue *queue, Element *element)
   newCell->element = element;
   newCell->next = NULL;
 
-  // se a queuea estiver vazia, insere na primeira posição(que também será a últ
-  // ma)
+  // se a fila estiver vazia, insere na primeira posição (que também será a última)
   if (!queue->first)
   {
     queue->first = newCell;
     queue->last = newCell;
     return queue;
   }
-  // Caso contrário percorre a queuea e insere na posição ordenada
+  // Caso contrário percorre a fila e insere na posição ordenada
   while (current)
   {
     if (strcmp(get_element_name(element), get_element_name(current->element)) < 0)
@@ -81,12 +86,15 @@ PQueue *q_push(PQueue *queue, Element *element)
   return queue;
 }
 
+//=============================================//
 Element *get_first_queue_element(PQueue *queue)
 {
+  // Retorna o primeiro elemento da fila
   return queue->first->element;
 }
 
-void print_queue(PQueue *queue, FILE * file)
+//==========================================//
+void print_queue(PQueue *queue, FILE *file)
 {
   Cell *current = queue->first;
   while (current)
@@ -100,8 +108,10 @@ void print_queue(PQueue *queue, FILE * file)
   fprintf(file, "\n");
 }
 
+//==================================================//
 int queue_comparator(const void *q1, const void *q2)
 {
+  // Utilizada no qsort 
   PQueue *(*a) = (PQueue **)q1;
   PQueue *(*b) = (PQueue **)q2;
 
