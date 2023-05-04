@@ -49,3 +49,17 @@ clean:
 # @ echo "Cleaning workspace..."
 	@ rm -rf $(OBJ) $(EXECUTABLE) *.txt
 # @ echo $(RESET_COLOR)
+
+run:
+	@ ./trab1 test/in/1.txt 2 out1.txt
+	@ ./trab1 test/in/2.txt 4 out2.txt
+	@ ./trab1 test/in/3.txt 5 out3.txt
+	@ ./trab1 test/in/4.txt 5 out4.txt
+	@ ./trab1 test/in/5.txt 10 out5.txt
+
+diff:
+	@ diff out1.txt test/out/1.txt
+	@ diff out2.txt test/out/2.txt
+	@ diff out3.txt test/out/3.txt
+	@ diff out4.txt test/out/4.txt
+	@ diff out5.txt test/out/5.txt	
